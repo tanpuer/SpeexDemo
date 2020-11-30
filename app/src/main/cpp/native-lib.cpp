@@ -70,9 +70,7 @@ Java_com_example_speexdemo_MainActivity_nativeSpeexProcessFrame(
         env->GetShortArrayRegion(rawShortArray, 0, size, &input[0]);
         int result = speex_preprocess_run(st, &input[0]);
         ALOGD("speex process result %d", result)
-        jshortArray outShortArray = env->NewShortArray(input.size());
-        env->SetShortArrayRegion(outShortArray, 0, input.size(), &input[0]);
-        return outShortArray;
+        env->SetShortArrayRegion(rawShortArray, 0, input.size(), &input[0]);
     }
     return rawShortArray;
 }
