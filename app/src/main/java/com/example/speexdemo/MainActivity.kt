@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.io.IOException
-import java.nio.ByteBuffer
 
 class MainActivity : AppCompatActivity() {
 
@@ -109,7 +108,6 @@ class MainActivity : AppCompatActivity() {
     external fun nativeReleaseSpeex()
 
     companion object {
-        // Used to load the 'native-lib' library on application startup.
         init {
             System.loadLibrary("native-lib")
         }
