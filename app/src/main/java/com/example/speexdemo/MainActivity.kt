@@ -1,4 +1,4 @@
-package com.yupaopao.speedxdemo
+package com.example.speexdemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
