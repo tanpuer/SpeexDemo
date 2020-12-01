@@ -41,19 +41,19 @@ Java_com_example_speexdemo_MainActivity_nativeInitSpeex(
     param = 0;
     result = speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_DEREVERB, &param);
     if (result != 0) {
-        ALOGD("set dereverb error %d", result);
+        ALOGD("set dereverb error %d", result)
         return;
     }
     float f = .0f;
     result = speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_DEREVERB_DECAY, &f);
     if (result != 0) {
-        ALOGD("set dereverb decay error %d", result);
+        ALOGD("set dereverb decay error %d", result)
         return;
     }
     f = .0f;
     result = speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_DEREVERB_LEVEL, &f);
     if (result != 0) {
-        ALOGD("set dereverb level error %d", result);
+        ALOGD("set dereverb level error %d", result)
         return;
     }
     ALOGD("speex init success")
