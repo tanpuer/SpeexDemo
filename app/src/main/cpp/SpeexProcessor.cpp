@@ -4,6 +4,7 @@
 
 #include "SpeexProcessor.h"
 #include "native_log.h"
+#include "utils.h"
 
 SpeexProcessor::SpeexProcessor(int frameSize, int sampleRate) {
     st = speex_preprocess_state_init(frameSize, sampleRate);
@@ -55,7 +56,10 @@ SpeexProcessor::SpeexProcessor(int frameSize, int sampleRate) {
 
 int SpeexProcessor::process(short *buffer) {
     if (st != nullptr) {
-        return speex_preprocess_run(st, buffer);
+        long long start = GetCurrentTimeMillis();
+        int result = speex_preprocess_run(st, buffer);
+        ALOGD("process buffer duration: %lld", GetCurrentTimeMillis() - start);
+        return result;
     }
     return -1;
 }
