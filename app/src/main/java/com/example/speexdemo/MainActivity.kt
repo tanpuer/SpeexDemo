@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAudio() {
-        nativeInitSpeex(DEFAULT_BUFFER_SIZE, 44100)
         initAudioTrack()
         initAudioRecord()
     }
@@ -84,15 +83,17 @@ class MainActivity : AppCompatActivity() {
         writeThread = object : Thread() {
             override fun run() {
                 try {
+                    nativeInitSpeex(DEFAULT_BUFFER_SIZE, 44100)
                     mAudioRecord.startRecording()
                     val buffer = ShortArray(minBufferSize)
-                    while (mAudioRecord.recordingState == AudioRecord.RECORDSTATE_RECORDING) {
+                    while (isRecording) {
                         mAudioRecord.read(buffer, 0, minBufferSize)
 
                         val result = nativeSpeexProcessFrame(buffer)
 
                         mAudioTrack.write(result, 0, result.size)
                     }
+                    nativeReleaseSpeex()
                     writeThread?.join()
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -108,6 +109,7 @@ class MainActivity : AppCompatActivity() {
     external fun nativeReleaseSpeex()
 
     companion object {
+        var isRecording = true
         init {
             System.loadLibrary("native-lib")
         }
